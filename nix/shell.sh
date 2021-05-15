@@ -5,7 +5,7 @@ export VIM_COLOR_SCHEME="${VIM_COLOR_SCHEME:-PaperColor}"
 echo "starting nixos container"
 docker run -it --rm \
   -e NIXPKGS_ALLOW_BROKEN=1 \
-  -e ROBOT_SSH_KEY="$ROBOT_SSH_KEY" \
+  -e ROBOT_SSH_KEY="$PRIVATE_SSH_KEY" \
   -p 3000:3000 \
   -v "$(pwd):/app" \
   -v "nix:/nix" \
