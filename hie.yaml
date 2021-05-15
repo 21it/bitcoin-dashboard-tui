@@ -1,0 +1,8 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: bitcoin-dashboard-tui:lib
+    - path: "./app"
+      component: bitcoin-dashboard-tui:exe:bitcoin-dashboard-tui-exe
+    - path: "./test"
+      component: bitcoin-dashboard-tui:test:bitcoin-dashboard-tui-test

@@ -1,0 +1,156 @@
+name:                bitcoin-dashboard-tui
+version:             0.1.0.0
+github:              "tkachuk-labs/bitcoin-dashboard-tui"
+license:             BSD3
+author:              "Ilja Tkachuk"
+maintainer:          "tkachuk.labs@gmail.com"
+copyright:           "2021 Ilja Tkachuk"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Data
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/tkachuk-labs/bitcoin-dashboard-tui#readme>
+
+dependencies:
+# foundation
+- base >= 4.7 && < 5
+- universum
+# time
+- time
+- chronos
+- unbounded-delays
+- retry
+# storage
+- persistent
+- persistent-postgresql
+- persistent-template
+- persistent-migration
+- esqueleto
+# logging
+- katip
+- monad-logger
+# web
+- wai
+- wai-middleware-static-embedded
+- warp
+- websockets
+- replica
+- concur-core
+- concur-replica
+# lens
+- lens
+- microlens
+# bytes and text
+- bytestring
+- text
+# threads
+- async
+- stm
+- resource-pool
+# th
+- template-haskell
+- file-embed
+# other
+- unliftio
+- containers
+- envparse
+- extra
+
+library:
+  source-dirs: src
+  default-extensions:
+  - NoImplicitPrelude
+  - MultiParamTypeClasses
+  - LambdaCase
+  - OverloadedStrings
+  - ScopedTypeVariables
+  - GeneralizedNewtypeDeriving
+  - DerivingStrategies
+  ghc-options:
+  # For details on warnings: https://downloads.haskell.org/~ghc/master/users-guide/using-warnings.html
+  # Enable all warnings with -Weverything, then disable the ones we don’t care about
+  - -Weverything
+  - -Werror
+  - -Wno-missing-exported-signatures # missing-exported-signatures turns off the more strict -Wmissing-signatures. See https://ghc.haskell.org/trac/ghc/ticket/14794#ticket
+  - -Wno-missing-import-lists # Requires explicit imports of _every_ function (e.g. ‘$’); too strict
+  - -Wno-missed-specialisations # When GHC can’t specialize a polymorphic function. No big deal and requires fixing underlying libraries to solve.
+  - -Wno-all-missed-specialisations # See missed-specialisations
+  - -Wno-unsafe # Don’t use Safe Haskell warnings
+  - -Wno-safe # Don’t use Safe Haskell warnings
+  - -Wno-missing-local-signatures # Warning for polymorphic local bindings; nothing wrong with those.
+  - -Wno-monomorphism-restriction # Don’t warn if the monomorphism restriction is used
+  dependencies:
+  - hspec
+  - hspec-wai
+
+executables:
+  bitcoin-dashboard-tui-exe:
+    main:                Main.hs
+    source-dirs:         app
+    default-extensions:
+    - NoImplicitPrelude
+    - MultiParamTypeClasses
+    - LambdaCase
+    - OverloadedStrings
+    - ScopedTypeVariables
+    - GeneralizedNewtypeDeriving
+    - DerivingStrategies
+    ghc-options:
+    # For details on warnings: https://downloads.haskell.org/~ghc/master/users-guide/using-warnings.html
+    # Enable all warnings with -Weverything, then disable the ones we don’t care about
+    - -Weverything
+    - -Werror
+    - -Wno-missing-exported-signatures # missing-exported-signatures turns off the more strict -Wmissing-signatures. See https://ghc.haskell.org/trac/ghc/ticket/14794#ticket
+    - -Wno-missing-import-lists # Requires explicit imports of _every_ function (e.g. ‘$’); too strict
+    - -Wno-missed-specialisations # When GHC can’t specialize a polymorphic function. No big deal and requires fixing underlying libraries to solve.
+    - -Wno-all-missed-specialisations # See missed-specialisations
+    - -Wno-unsafe # Don’t use Safe Haskell warnings
+    - -Wno-safe # Don’t use Safe Haskell warnings
+    - -Wno-missing-local-signatures # Warning for polymorphic local bindings; nothing wrong with those.
+    - -Wno-monomorphism-restriction # Don’t warn if the monomorphism restriction is used
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - bitcoin-dashboard-tui
+
+tests:
+  bitcoin-dashboard-tui-test:
+    main:                Spec.hs
+    source-dirs:         test
+    default-extensions:
+    - NoImplicitPrelude
+    - MultiParamTypeClasses
+    - LambdaCase
+    - OverloadedStrings
+    - ScopedTypeVariables
+    - GeneralizedNewtypeDeriving
+    - DerivingStrategies
+    ghc-options:
+    # For details on warnings: https://downloads.haskell.org/~ghc/master/users-guide/using-warnings.html
+    # Enable all warnings with -Weverything, then disable the ones we don’t care about
+    - -Weverything
+    - -Werror
+    - -Wno-missing-exported-signatures # missing-exported-signatures turns off the more strict -Wmissing-signatures. See https://ghc.haskell.org/trac/ghc/ticket/14794#ticket
+    - -Wno-missing-import-lists # Requires explicit imports of _every_ function (e.g. ‘$’); too strict
+    - -Wno-missed-specialisations # When GHC can’t specialize a polymorphic function. No big deal and requires fixing underlying libraries to solve.
+    - -Wno-all-missed-specialisations # See missed-specialisations
+    - -Wno-unsafe # Don’t use Safe Haskell warnings
+    - -Wno-safe # Don’t use Safe Haskell warnings
+    - -Wno-missing-local-signatures # Warning for polymorphic local bindings; nothing wrong with those.
+    - -Wno-monomorphism-restriction # Don’t warn if the monomorphism restriction is used
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - bitcoin-dashboard-tui
+    - hspec
+    - hspec-wai

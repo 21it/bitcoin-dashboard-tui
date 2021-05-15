@@ -1,0 +1,154 @@
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.form-control:focus,
+input:focus {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+input[type="checkbox"] .has-error .form-control {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.flip-hor {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+  display: inline-block;
+}
+
+.brand-logo {
+  font-weight: bold;
+  text-shadow: 0 1px 0 teal;
+}
+
+.navbar {
+  background-color: black;
+  font-size: 16px;
+}
+
+.navbar-fixed-top {
+  position: absolute;
+}
+
+/* Common styles for all types */
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.bs-callout-info {
+  border-left-color: #1b809e;
+}
+
+/* Space things out */
+.bs-docs-section {
+  margin-bottom: 60px;
+}
+.bs-docs-section:last-child {
+  margin-bottom: 0;
+}
+
+#message {
+    margin-bottom: 21px;
+}
+
+.footer {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.compact {
+  max-width: 450px;
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+
+.small-margin-top {
+  margin-top: 5px;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
+p, h1, h2, h3 {
+  margin: 0;
+}
+
+table {
+  margin: 0 !important;
+}
+
+form > div.form-group > span {
+  display: block;
+}
+
+form > div.form-group > span > label {
+  display: flex;
+  align-items: center;
+}
+
+form > div.form-group > input[type="checkbox"] {
+  width: 39px;
+  margin-right: 10px;
+  box-shadow: 0 0 0;
+}
+
+form > div.form-group > span > label > input[type="checkbox"] {
+  width: 39px;
+  margin-right: 10px;
+  box-shadow: 0 0 0;
+}
+
+.padded {
+  padding: 15px;
+}
+
+.breadcrumb > li {
+  font-size: 16px;
+}
+
+select {
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.multiple-select-field{
+  min-width: 80px;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.alert {
+  margin-bottom: 15px !important;
+}
+
+.overflow-wrap {
+  overflow-wrap: anywhere;
+}

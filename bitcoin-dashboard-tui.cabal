@@ -1,0 +1,192 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           bitcoin-dashboard-tui
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/tkachuk-labs/bitcoin-dashboard-tui#readme>
+homepage:       https://github.com/tkachuk-labs/bitcoin-dashboard-tui#readme
+bug-reports:    https://github.com/tkachuk-labs/bitcoin-dashboard-tui/issues
+author:         Ilja Tkachuk
+maintainer:     tkachuk.labs@gmail.com
+copyright:      2021 Ilja Tkachuk
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/tkachuk-labs/bitcoin-dashboard-tui
+
+library
+  exposed-modules:
+      BitcoinDashboardTui.Class
+      BitcoinDashboardTui.Data.AppM
+      BitcoinDashboardTui.Data.Env
+      BitcoinDashboardTui.Data.Type
+      BitcoinDashboardTui.Import
+      BitcoinDashboardTui.Import.External
+      BitcoinDashboardTui.Wai.Chat
+      BitcoinDashboardTui.Wai.Static
+  other-modules:
+      Paths_bitcoin_dashboard_tui
+  hs-source-dirs:
+      src
+  default-extensions:
+      NoImplicitPrelude
+      MultiParamTypeClasses
+      LambdaCase
+      OverloadedStrings
+      ScopedTypeVariables
+      GeneralizedNewtypeDeriving
+      DerivingStrategies
+  ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bytestring
+    , chronos
+    , concur-core
+    , concur-replica
+    , containers
+    , envparse
+    , esqueleto
+    , extra
+    , file-embed
+    , hspec
+    , hspec-wai
+    , katip
+    , lens
+    , microlens
+    , monad-logger
+    , persistent
+    , persistent-migration
+    , persistent-postgresql
+    , persistent-template
+    , replica
+    , resource-pool
+    , retry
+    , stm
+    , template-haskell
+    , text
+    , time
+    , unbounded-delays
+    , universum
+    , unliftio
+    , wai
+    , wai-middleware-static-embedded
+    , warp
+    , websockets
+  default-language: Haskell2010
+
+executable bitcoin-dashboard-tui-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_bitcoin_dashboard_tui
+  hs-source-dirs:
+      app
+  default-extensions:
+      NoImplicitPrelude
+      MultiParamTypeClasses
+      LambdaCase
+      OverloadedStrings
+      ScopedTypeVariables
+      GeneralizedNewtypeDeriving
+      DerivingStrategies
+  ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bitcoin-dashboard-tui
+    , bytestring
+    , chronos
+    , concur-core
+    , concur-replica
+    , containers
+    , envparse
+    , esqueleto
+    , extra
+    , file-embed
+    , katip
+    , lens
+    , microlens
+    , monad-logger
+    , persistent
+    , persistent-migration
+    , persistent-postgresql
+    , persistent-template
+    , replica
+    , resource-pool
+    , retry
+    , stm
+    , template-haskell
+    , text
+    , time
+    , unbounded-delays
+    , universum
+    , unliftio
+    , wai
+    , wai-middleware-static-embedded
+    , warp
+    , websockets
+  default-language: Haskell2010
+
+test-suite bitcoin-dashboard-tui-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_bitcoin_dashboard_tui
+  hs-source-dirs:
+      test
+  default-extensions:
+      NoImplicitPrelude
+      MultiParamTypeClasses
+      LambdaCase
+      OverloadedStrings
+      ScopedTypeVariables
+      GeneralizedNewtypeDeriving
+      DerivingStrategies
+  ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bitcoin-dashboard-tui
+    , bytestring
+    , chronos
+    , concur-core
+    , concur-replica
+    , containers
+    , envparse
+    , esqueleto
+    , extra
+    , file-embed
+    , hspec
+    , hspec-wai
+    , katip
+    , lens
+    , microlens
+    , monad-logger
+    , persistent
+    , persistent-migration
+    , persistent-postgresql
+    , persistent-template
+    , replica
+    , resource-pool
+    , retry
+    , stm
+    , template-haskell
+    , text
+    , time
+    , unbounded-delays
+    , universum
+    , unliftio
+    , wai
+    , wai-middleware-static-embedded
+    , warp
+    , websockets
+  default-language: Haskell2010
