@@ -113,8 +113,8 @@ currencyPairs :: [CurrencyPair]
 currencyPairs =
   [ CurrencyPair "BTC" "USD",
     CurrencyPair "BTC" "EUR",
-    CurrencyPair "ADA" "BTC",
-    CurrencyPair "XMR" "BTC"
+    CurrencyPair "ADA" "BTC"
+    --CurrencyPair "XMR" "BTC"
   ]
 
 ui :: MarketState -> [Widget ()]
@@ -155,16 +155,16 @@ app =
   Brick.App
     { Brick.appDraw = ui,
       Brick.appChooseCursor = Brick.neverShowCursor,
-      Brick.appHandleEvent = marketEventHandler,
+      Brick.appHandleEvent = appEventHandler,
       Brick.appStartEvent = pure,
       Brick.appAttrMap = const $ AttrMap.attrMap Vty.defAttr []
     }
 
-marketEventHandler ::
+appEventHandler ::
   MarketState ->
   BrickEvent () MarketEvent ->
   EventM () (Next MarketState)
-marketEventHandler st@(MarketState s) =
+appEventHandler st@(MarketState s) =
   \case
     AppEvent (MarketEvent k v) ->
       continue . MarketState $
