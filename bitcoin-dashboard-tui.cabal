@@ -78,6 +78,7 @@ library
     , unbounded-delays
     , universum
     , unliftio
+    , vty
     , wai
     , wai-middleware-static-embedded
     , warp
@@ -136,6 +137,7 @@ executable bitcoin-dashboard-tui-exe
     , unbounded-delays
     , universum
     , unliftio
+    , vty
     , wai
     , wai-middleware-static-embedded
     , warp
@@ -197,6 +199,7 @@ test-suite bitcoin-dashboard-tui-test
     , unbounded-delays
     , universum
     , unliftio
+    , vty
     , wai
     , wai-middleware-static-embedded
     , warp
