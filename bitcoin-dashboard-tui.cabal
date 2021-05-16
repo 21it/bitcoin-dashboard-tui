@@ -25,14 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      BitcoinDashboardTui.Class
-      BitcoinDashboardTui.Data.AppM
-      BitcoinDashboardTui.Data.Env
-      BitcoinDashboardTui.Data.Type
       BitcoinDashboardTui.Import
       BitcoinDashboardTui.Import.External
-      BitcoinDashboardTui.Wai.Chat
-      BitcoinDashboardTui.Wai.Static
   other-modules:
       Paths_bitcoin_dashboard_tui
   hs-source-dirs:
@@ -45,10 +39,13 @@ library
       ScopedTypeVariables
       GeneralizedNewtypeDeriving
       DerivingStrategies
+      KindSignatures
+      DataKinds
   ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction
   build-depends:
       async
     , base >=4.7 && <5
+    , brick
     , bytestring
     , chronos
     , concur-core
@@ -58,8 +55,11 @@ library
     , esqueleto
     , extra
     , file-embed
+    , haskell-coinbase-pro
     , hspec
     , hspec-wai
+    , http-client
+    , http-client-tls
     , katip
     , lens
     , microlens
@@ -98,11 +98,14 @@ executable bitcoin-dashboard-tui-exe
       ScopedTypeVariables
       GeneralizedNewtypeDeriving
       DerivingStrategies
+      KindSignatures
+      DataKinds
   ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       async
     , base >=4.7 && <5
     , bitcoin-dashboard-tui
+    , brick
     , bytestring
     , chronos
     , concur-core
@@ -112,6 +115,9 @@ executable bitcoin-dashboard-tui-exe
     , esqueleto
     , extra
     , file-embed
+    , haskell-coinbase-pro
+    , http-client
+    , http-client-tls
     , katip
     , lens
     , microlens
@@ -151,11 +157,14 @@ test-suite bitcoin-dashboard-tui-test
       ScopedTypeVariables
       GeneralizedNewtypeDeriving
       DerivingStrategies
+      KindSignatures
+      DataKinds
   ghc-options: -Weverything -Werror -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       async
     , base >=4.7 && <5
     , bitcoin-dashboard-tui
+    , brick
     , bytestring
     , chronos
     , concur-core
@@ -165,8 +174,11 @@ test-suite bitcoin-dashboard-tui-test
     , esqueleto
     , extra
     , file-embed
+    , haskell-coinbase-pro
     , hspec
     , hspec-wai
+    , http-client
+    , http-client-tls
     , katip
     , lens
     , microlens

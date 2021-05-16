@@ -6,7 +6,6 @@ echo "starting nixos container"
 docker run -it --rm \
   -e NIXPKGS_ALLOW_BROKEN=1 \
   -e ROBOT_SSH_KEY="$PRIVATE_SSH_KEY" \
-  -p 3000:3000 \
   -v "$(pwd):/app" \
   -v "nix:/nix" \
   -v "nix-19.09-root:/root" \

@@ -1,7 +1,6 @@
 module BitcoinDashboardTui.Import.External (module X) where
 
 import Chronos as X (Timespan (..), stopwatch)
-import Concur.Core as X (Widget, step)
 import Control.Concurrent.Async as X
   ( Async (..),
     async,
@@ -21,6 +20,7 @@ import Control.Concurrent.STM.TChan as X
     writeTChan,
   )
 import Control.Concurrent.Thread.Delay as X (delay)
+import Control.Exception as X (Handler (..), catches)
 import Control.Monad (forever)
 import Data.Bifunctor as X (bimap, first, second)
 import Data.Coerce as X (coerce)

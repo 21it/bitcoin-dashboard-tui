@@ -12,6 +12,38 @@ packages:
   original:
     hackage: envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
 - completed:
+    hackage: brick-0.62@sha256:363238020d598abb08182b8a0a910f48d1517955611f416bb6bb8645c7e80ee8,16531
+    pantry-tree:
+      size: 6254
+      sha256: 941eb2a7e446f8083247cfe21458222dee521dbc608f746a0f496fedfd6953e8
+  original:
+    hackage: brick-0.62
+- completed:
+    hackage: vty-5.33@sha256:8da1652d64e24c9e011384628de340b2877f0148de7ef57baf66cd2e9a35c6c6,22294
+    pantry-tree:
+      size: 5393
+      sha256: f83f9245266d28f8521227cf551d6498a4ad7b22f1ac98c5992c287e6fc06d08
+  original:
+    hackage: vty-5.33@sha256:8da1652d64e24c9e011384628de340b2877f0148de7ef57baf66cd2e9a35c6c6,22294
+- completed:
+    hackage: ansi-terminal-0.10.3@sha256:e2fbcef5f980dc234c7ad8e2fa433b0e8109132c9e643bc40ea5608cd5697797,3226
+    pantry-tree:
+      size: 1461
+      sha256: 02f05d52be3ffcf36c78876629cbab80b63420672685371aea4fd10e1c4aabb6
+  original:
+    hackage: ansi-terminal-0.10.3@sha256:e2fbcef5f980dc234c7ad8e2fa433b0e8109132c9e643bc40ea5608cd5697797,3226
+- completed:
+    size: 30892
+    url: https://github.com/tkachuk-labs/haskell-coinbase-pro/archive/642a8282ac9f378a6dc0e88535bb50c44bcae091.tar.gz
+    name: haskell-coinbase-pro
+    version: 0.4.0.0
+    sha256: 2a755971a97c08d6d454d6d831fe0246d4661a024f5964da9ed8dd3362523b1b
+    pantry-tree:
+      size: 1439
+      sha256: fa10f1669b595b68d387d7c807216307b115dd5258272ad726f72ce009b4e10e
+  original:
+    url: https://github.com/tkachuk-labs/haskell-coinbase-pro/archive/642a8282ac9f378a6dc0e88535bb50c44bcae091.tar.gz
+- completed:
     hackage: hspec-wai-0.10.1@sha256:56dd9ec1d56f47ef1946f71f7cbf070e4c285f718cac1b158400ae5e7172ef47,2290
     pantry-tree:
       size: 809
