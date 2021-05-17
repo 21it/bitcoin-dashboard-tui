@@ -12,9 +12,11 @@ import Coinbase.Exchange.Types.Core
 import qualified Coinbase.Exchange.Types.MarketData as MarketData
 import qualified Data.Map as Map
 import qualified Data.Text as T
+import qualified Data.Text.Lazy as TL
 import qualified Graphics.Vty as Vty
 import qualified Network.HTTP.Client as Http
 import qualified Network.HTTP.Client.TLS as Http
+import Text.Pretty.Simple
 import qualified Text.Show
 
 class ToCoinbase a b where
@@ -38,7 +40,7 @@ newtype ErrorCount
 
 data MarketData
   = MarketDataStats MarketData.Stats ErrorCount
-  | MarketDataError Text
+  | MarketDataError ExchangeFailure
   deriving (Show)
 
 data MarketEvent
@@ -72,7 +74,7 @@ getMarketEvent conf cp =
           ( \(e :: Http.HttpException) -> pure $ MarketEvent cp $ case e of
               (Http.InvalidUrlException _ _) -> Left $ ApiFailure $ show e
               (Http.HttpExceptionRequest re ex) ->
-                Left $ ApiFailure $ show $
+                Left . ApiFailure . TL.toStrict . pShowNoColor $
                   Http.HttpExceptionRequest
                     re
                       { Http.requestHeaders =
@@ -113,42 +115,54 @@ currencyPairs :: [CurrencyPair]
 currencyPairs =
   [ CurrencyPair "BTC" "USD",
     CurrencyPair "BTC" "EUR",
-    CurrencyPair "ADA" "BTC"
-    --CurrencyPair "XMR" "BTC"
+    CurrencyPair "ADA" "BTC",
+    CurrencyPair "XMR" "BTC"
   ]
 
 ui :: MarketState -> [Widget ()]
-ui = (: []) . center . renderTable . leftTable
+ui = (: []) . vBox . tables
 
-leftTable :: MarketState -> Table ()
-leftTable (MarketState kv) =
-  table . (header :)
-    $ catMaybes
-    $ (\k -> row k <$> Map.lookup k kv) <$> currencyPairs
+tables :: MarketState -> [Widget ()]
+tables (MarketState kv) = center . renderTable . table <$> ts
   where
-    header =
+    ts =
+      case partitionEithers . catMaybes $
+        (\k -> row k <$> Map.lookup k kv) <$> currencyPairs of
+        ([], xs) -> [headerOk : xs]
+        (es, []) -> [headerError : es]
+        (es, xs) -> [headerOk : xs, headerError : es]
+    headerOk =
       [ txt "Base/Quote",
         txt "Volume",
         txt "Open",
         txt "Low",
         txt "High"
       ]
+    headerError =
+      [ txt "Base/Quote",
+        txt "Error"
+      ]
     row k = \case
-      MarketDataError e ->
-        [ txt $ show k,
-          txt e,
-          txt "",
-          txt "",
-          txt ""
-        ]
-      MarketDataStats s _ ->
-        txt
-          <$> [ show k,
-                show . unVolume $ statsVolume s,
-                show . unOpen $ statsOpen s,
-                show . unLow $ statsLow s,
-                show . unHigh $ statsHigh s
+      MarketDataError err ->
+        let e = case err of
+              ParseFailure x -> x
+              ApiFailure x -> x
+              AuthenticationRequiredFailure x -> x
+              AuthenticationRequiresByteStrings ->
+                "AuthenticationRequiresByteStrings"
+         in Left
+              [ txt $ show k,
+                txt e
               ]
+      MarketDataStats s _ ->
+        Right $
+          txt
+            <$> [ show k,
+                  show . unVolume $ statsVolume s,
+                  show . unOpen $ statsOpen s,
+                  show . unLow $ statsLow s,
+                  show . unHigh $ statsHigh s
+                ]
 
 app :: Brick.App MarketState MarketEvent ()
 app =
@@ -186,7 +200,7 @@ appEventHandler st@(MarketState s) =
       continue st
   where
     createState = \case
-      Left e -> MarketDataError $ show e
+      Left e -> MarketDataError e
       Right x -> MarketDataStats x 0
     updateState newMarket oldMarket =
       case (oldMarket, newMarket) of

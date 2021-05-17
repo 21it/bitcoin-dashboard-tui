@@ -28,6 +28,7 @@ dependencies:
 - haskell-coinbase-pro
 - http-client
 - http-client-tls
+- pretty-simple
 # time
 - time
 - chronos

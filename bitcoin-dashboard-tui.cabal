@@ -68,6 +68,7 @@ library
     , persistent-migration
     , persistent-postgresql
     , persistent-template
+    , pretty-simple
     , replica
     , resource-pool
     , retry
@@ -127,6 +128,7 @@ executable bitcoin-dashboard-tui-exe
     , persistent-migration
     , persistent-postgresql
     , persistent-template
+    , pretty-simple
     , replica
     , resource-pool
     , retry
@@ -189,6 +191,7 @@ test-suite bitcoin-dashboard-tui-test
     , persistent-migration
     , persistent-postgresql
     , persistent-template
+    , pretty-simple
     , replica
     , resource-pool
     , retry
