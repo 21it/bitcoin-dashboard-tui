@@ -53,6 +53,9 @@ newtype MarketState
   = MarketState (Map CurrencyPair MarketData)
   deriving (Show)
 
+data ViewPort = ViewPort
+  deriving (Eq, Ord, Show)
+
 instance Text.Show.Show CurrencyPair where
   show (CurrencyPair base quote) =
     this base <> "/" <> this quote
@@ -119,18 +122,32 @@ currencyPairs =
     CurrencyPair "XMR" "BTC"
   ]
 
-ui :: MarketState -> [Widget ()]
-ui = (: []) . vBox . tables
+ui :: MarketState -> [Widget ViewPort]
+ui =
+  (: [])
+    . center
+    . vBox
+    . tables
 
-tables :: MarketState -> [Widget ()]
-tables (MarketState kv) = center . renderTable . table <$> ts
+tables :: MarketState -> [Widget ViewPort]
+tables (MarketState kv) =
+  case partitionEithers . catMaybes $
+    (\k -> row k <$> Map.lookup k kv) <$> currencyPairs of
+    ([], xs) -> [tableOk xs]
+    (es, []) -> [tableError es]
+    (es, xs) -> [tableOk xs, tableError es]
   where
-    ts =
-      case partitionEithers . catMaybes $
-        (\k -> row k <$> Map.lookup k kv) <$> currencyPairs of
-        ([], xs) -> [headerOk : xs]
-        (es, []) -> [headerError : es]
-        (es, xs) -> [headerOk : xs, headerError : es]
+    tableOk =
+      center
+        . renderTable
+        . table
+        . (headerOk :)
+    tableError =
+      center
+        . viewport ViewPort Both
+        . renderTable
+        . table
+        . (headerError :)
     headerOk =
       [ txt "Base/Quote",
         txt "Volume",
@@ -145,9 +162,12 @@ tables (MarketState kv) = center . renderTable . table <$> ts
     row k = \case
       MarketDataError err ->
         let e = case err of
-              ParseFailure x -> x
-              ApiFailure x -> x
-              AuthenticationRequiredFailure x -> x
+              ParseFailure x ->
+                "ParseFailure\n\n" <> x
+              ApiFailure x ->
+                "ApiFailure\n\n" <> x
+              AuthenticationRequiredFailure x ->
+                "AuthenticationRequiredFailure\n\n" <> x
               AuthenticationRequiresByteStrings ->
                 "AuthenticationRequiresByteStrings"
          in Left
@@ -164,7 +184,7 @@ tables (MarketState kv) = center . renderTable . table <$> ts
                   show . unHigh $ statsHigh s
                 ]
 
-app :: Brick.App MarketState MarketEvent ()
+app :: Brick.App MarketState MarketEvent ViewPort
 app =
   Brick.App
     { Brick.appDraw = ui,
@@ -174,10 +194,13 @@ app =
       Brick.appAttrMap = const $ AttrMap.attrMap Vty.defAttr []
     }
 
+scroll :: Brick.ViewportScroll ViewPort
+scroll = Brick.viewportScroll ViewPort
+
 appEventHandler ::
   MarketState ->
-  BrickEvent () MarketEvent ->
-  EventM () (Next MarketState)
+  BrickEvent ViewPort MarketEvent ->
+  EventM ViewPort (Next MarketState)
 appEventHandler st@(MarketState s) =
   \case
     AppEvent (MarketEvent k v) ->
@@ -185,20 +208,24 @@ appEventHandler st@(MarketState s) =
         Map.insertWith updateState k (createState v) s
     VtyEvent e ->
       case e of
-        Vty.EvKey Vty.KEsc [] ->
-          Brick.halt st
-        Vty.EvKey (Vty.KChar 'q') [] ->
-          Brick.halt st
-        Vty.EvKey (Vty.KChar x) [Vty.MCtrl]
-          | x `elem` ['c', 'd'] ->
-            Brick.halt st
-        _ ->
-          continue st
+        Vty.EvKey Vty.KDown [] -> scrollDown
+        Vty.EvKey Vty.KUp [] -> scrollUp
+        Vty.EvKey Vty.KRight [] -> scrollRight
+        Vty.EvKey Vty.KLeft [] -> scrollLeft
+        Vty.EvKey Vty.KEsc [] -> terminate
+        Vty.EvKey (Vty.KChar 'q') [] -> terminate
+        Vty.EvKey (Vty.KChar x) [Vty.MCtrl] | x `elem` ['c', 'd'] -> terminate
+        _ -> continue st
     MouseDown {} ->
       continue st
     MouseUp {} ->
       continue st
   where
+    scrollDown = Brick.vScrollBy scroll 1 >> Brick.continue st
+    scrollUp = Brick.vScrollBy scroll (-1) >> Brick.continue st
+    scrollRight = Brick.hScrollBy scroll 1 >> Brick.continue st
+    scrollLeft = Brick.hScrollBy scroll (-1) >> Brick.continue st
+    terminate = Brick.halt st
     createState = \case
       Left e -> MarketDataError e
       Right x -> MarketDataStats x 0
