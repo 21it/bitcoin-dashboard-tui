@@ -45,32 +45,21 @@ library
   build-depends:
       async
     , base >=4.7 && <5
-    , brick
+    , brick >=0.62 && <0.65
     , bytestring
-    , chronos
-    , concur-core
-    , concur-replica
     , containers
     , envparse
-    , esqueleto
     , extra
     , file-embed
     , haskell-coinbase-pro
+    , haskii
     , hspec
-    , hspec-wai
     , http-client
     , http-client-tls
     , katip
     , lens
     , microlens
-    , monad-logger
-    , persistent
-    , persistent-migration
-    , persistent-postgresql
-    , persistent-template
     , pretty-simple
-    , replica
-    , resource-pool
     , retry
     , stm
     , template-haskell
@@ -80,10 +69,6 @@ library
     , universum
     , unliftio
     , vty
-    , wai
-    , wai-middleware-static-embedded
-    , warp
-    , websockets
   default-language: Haskell2010
 
 executable bitcoin-dashboard-tui-exe
@@ -107,30 +92,20 @@ executable bitcoin-dashboard-tui-exe
       async
     , base >=4.7 && <5
     , bitcoin-dashboard-tui
-    , brick
+    , brick >=0.62 && <0.65
     , bytestring
-    , chronos
-    , concur-core
-    , concur-replica
     , containers
     , envparse
-    , esqueleto
     , extra
     , file-embed
     , haskell-coinbase-pro
+    , haskii
     , http-client
     , http-client-tls
     , katip
     , lens
     , microlens
-    , monad-logger
-    , persistent
-    , persistent-migration
-    , persistent-postgresql
-    , persistent-template
     , pretty-simple
-    , replica
-    , resource-pool
     , retry
     , stm
     , template-haskell
@@ -140,10 +115,6 @@ executable bitcoin-dashboard-tui-exe
     , universum
     , unliftio
     , vty
-    , wai
-    , wai-middleware-static-embedded
-    , warp
-    , websockets
   default-language: Haskell2010
 
 test-suite bitcoin-dashboard-tui-test
@@ -168,32 +139,21 @@ test-suite bitcoin-dashboard-tui-test
       async
     , base >=4.7 && <5
     , bitcoin-dashboard-tui
-    , brick
+    , brick >=0.62 && <0.65
     , bytestring
-    , chronos
-    , concur-core
-    , concur-replica
     , containers
     , envparse
-    , esqueleto
     , extra
     , file-embed
     , haskell-coinbase-pro
+    , haskii
     , hspec
-    , hspec-wai
     , http-client
     , http-client-tls
     , katip
     , lens
     , microlens
-    , monad-logger
-    , persistent
-    , persistent-migration
-    , persistent-postgresql
-    , persistent-template
     , pretty-simple
-    , replica
-    , resource-pool
     , retry
     , stm
     , template-haskell
@@ -203,8 +163,4 @@ test-suite bitcoin-dashboard-tui-test
     , universum
     , unliftio
     , vty
-    , wai
-    , wai-middleware-static-embedded
-    , warp
-    , websockets
   default-language: Haskell2010

@@ -23,34 +23,19 @@ dependencies:
 # foundation
 - base >= 4.7 && < 5
 - universum
-- brick
+- brick >= 0.62 && < 0.65
 - vty
 - haskell-coinbase-pro
 - http-client
 - http-client-tls
 - pretty-simple
+- haskii
 # time
 - time
-- chronos
 - unbounded-delays
 - retry
-# storage
-- persistent
-- persistent-postgresql
-- persistent-template
-- persistent-migration
-- esqueleto
 # logging
 - katip
-- monad-logger
-# web
-- wai
-- wai-middleware-static-embedded
-- warp
-- websockets
-- replica
-- concur-core
-- concur-replica
 # lens
 - lens
 - microlens
@@ -60,7 +45,6 @@ dependencies:
 # threads
 - async
 - stm
-- resource-pool
 # th
 - template-haskell
 - file-embed
@@ -97,7 +81,6 @@ library:
   - -Wno-monomorphism-restriction # Don’t warn if the monomorphism restriction is used
   dependencies:
   - hspec
-  - hspec-wai
 
 executables:
   bitcoin-dashboard-tui-exe:
@@ -165,4 +148,3 @@ tests:
     dependencies:
     - bitcoin-dashboard-tui
     - hspec
-    - hspec-wai

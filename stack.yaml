@@ -1,15 +1,19 @@
 resolver: lts-14.27
 system-ghc: true
+allow-newer: true
 allow-different-user: true
 packages:
   - .
 extra-deps:
+  - network-2.6.3.6@sha256:1ca79d81af02d7acd6032d5e6c9bde4618a8fdcfbe19bd42b49d420183975df0,2666
   - envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
   - brick-0.62
   - vty-5.33@sha256:8da1652d64e24c9e011384628de340b2877f0148de7ef57baf66cd2e9a35c6c6,22294
   - ansi-terminal-0.10.3@sha256:e2fbcef5f980dc234c7ad8e2fa433b0e8109132c9e643bc40ea5608cd5697797,3226
-  - github: tkachuk-labs/haskell-coinbase-pro
+  - git: https://github.com/tkachuk-labs/haskell-coinbase-pro.git
     commit: 642a8282ac9f378a6dc0e88535bb50c44bcae091
+  - git: https://github.com/tkachuk-labs/haskii.git
+    commit: 63c47ae8f4977cf5227150c5a8eb1f409f93fe22
   - hspec-wai-0.10.1@sha256:56dd9ec1d56f47ef1946f71f7cbf070e4c285f718cac1b158400ae5e7172ef47,2290
   - hspec-wai-json-0.10.1@sha256:67b405c38f0a9e2771480c8d3ecd8aeb8d8776a35d3b2906cb1b76c9538617e4,1629
   - cryptostore-0.2.1.0@sha256:9896e2984f36a1c8790f057fd5ce3da4cbcaf8aa73eb2d9277916886978c5b19,3881
@@ -19,41 +23,13 @@ extra-deps:
   - network-bitcoin-1.9.1@sha256:f950326eef853c8ce5a15a2fc65ed0291669b60b3138538629469fbeaf447d96,2420
   - swagger2-2.3.1.1
   - wai-middleware-static-embedded-0.1.0.0@sha256:036b7823a5e69452d1fe1e270ef3d4988063caa5bb00b6dfc356e1c21b7433e3,1581
-  - github: tkachuk-labs/persistent-migration
-    commit: 3afe6367363efafbc788ea72eb2c0492884d458a
-  - github: tkachuk-labs/HaskellNet
-    commit: 73bf47e9e4ee7ec18da0da2b23a18d4e4baa8485
-    sha256: d861bb9123051e90b00545a35f93aebc852370cbcc759b4efb4bc4dd75210f35
-    size: 55457
-  - github: tkachuk-labs/concur
-    commit: dc5347b35c79654d58fa95716f425ee7248504fb
-    sha256: 0253f7cc909e8620a1ca9f45a553dfb77b502dbdc77cbe0f0e92e63c4ff5f81b
-    size: 6137383
-    subdirs:
-      - concur-core
-  - github: tkachuk-labs/replica
-    commit: c0046ff9b3be5e20e5306de743b83620cf59c6a9
-    sha256: d7d043b603be23acbfa04fbf198dc136909e23f8aa502aafa05dcc5b9e25daf5
-    size: 195022
-  - github: tkachuk-labs/concur-replica
-    commit: 7d16bcc93114c62252e3e22c208dc2a819f02435
-    sha256: 2a808d1214b48eb8fb8f98740b0b37022c26e52e8cbf4d201f19866bed2519bd
-    size: 25421
-  - github: tkachuk-labs/gRPC-haskell
+  - git: https://github.com/tkachuk-labs/gRPC-haskell.git
     commit: 8eaee520cd1a2ae909d2ef7ce16ce3a17be4418a
-    sha256: d9c150a855b85b5ebc1c22c2fcc0ea171ee0fdee46dd626a115f8405cb5c4502
-    size: 110250
     subdirs:
       - core
-  - github: tkachuk-labs/gRPC-haskell
+  - git: https://github.com/tkachuk-labs/gRPC-haskell.git
     commit: 8eaee520cd1a2ae909d2ef7ce16ce3a17be4418a
-    sha256: d9c150a855b85b5ebc1c22c2fcc0ea171ee0fdee46dd626a115f8405cb5c4502
-    size: 110250
-  - github: tkachuk-labs/proto3-suite
+  - git: https://github.com/tkachuk-labs/proto3-suite.git
     commit: ca03aa9d846d88b0762e40f9588b4927de22f798
-    sha256: be7b53ee359f0e02e8a363cafe62d5d6ae110ad211a033ef53a230f0ba2589b9
-    size: 78528
-  - github: tkachuk-labs/proto3-wire
+  - git: https://github.com/tkachuk-labs/proto3-wire.git
     commit: 23015cf6363d1962fde6bdff0de111f7ec59ab75
-    sha256: af5f173afe9831f1e9bd061c9e0878de8fd18987f0604885a69c4d81c5824c4e
-    size: 20147

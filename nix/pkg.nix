@@ -1,12 +1,8 @@
-{ mkDerivation, async, base, brick, bytestring, chronos
-, concur-core, concur-replica, containers, envparse, esqueleto
-, extra, file-embed, haskell-coinbase-pro, hpack, hspec, hspec-wai
-, http-client, http-client-tls, katip, lens, microlens
-, monad-logger, persistent, persistent-migration
-, persistent-postgresql, persistent-template, replica
-, resource-pool, retry, stdenv, stm, template-haskell, text, time
-, unbounded-delays, universum, unliftio, vty, wai
-, wai-middleware-static-embedded, warp, websockets
+{ mkDerivation, async, base, brick, bytestring, containers
+, envparse, extra, file-embed, haskell-coinbase-pro, haskii, hpack
+, hspec, http-client, http-client-tls, katip, lens, microlens
+, pretty-simple, retry, stdenv, stm, template-haskell, text, time
+, unbounded-delays, universum, unliftio, vty
 }:
 mkDerivation {
   pname = "bitcoin-dashboard-tui";
@@ -15,32 +11,23 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    async base brick bytestring chronos concur-core concur-replica
-    containers envparse esqueleto extra file-embed haskell-coinbase-pro
-    hspec hspec-wai http-client http-client-tls katip lens microlens
-    monad-logger persistent persistent-migration persistent-postgresql
-    persistent-template replica resource-pool retry stm
-    template-haskell text time unbounded-delays universum unliftio vty
-    wai wai-middleware-static-embedded warp websockets
+    async base brick bytestring containers envparse extra file-embed
+    haskell-coinbase-pro haskii hspec http-client http-client-tls katip
+    lens microlens pretty-simple retry stm template-haskell text time
+    unbounded-delays universum unliftio vty
   ];
   libraryToolDepends = [ hpack ];
   executableHaskellDepends = [
-    async base brick bytestring chronos concur-core concur-replica
-    containers envparse esqueleto extra file-embed haskell-coinbase-pro
-    http-client http-client-tls katip lens microlens monad-logger
-    persistent persistent-migration persistent-postgresql
-    persistent-template replica resource-pool retry stm
-    template-haskell text time unbounded-delays universum unliftio vty
-    wai wai-middleware-static-embedded warp websockets
+    async base brick bytestring containers envparse extra file-embed
+    haskell-coinbase-pro haskii http-client http-client-tls katip lens
+    microlens pretty-simple retry stm template-haskell text time
+    unbounded-delays universum unliftio vty
   ];
   testHaskellDepends = [
-    async base brick bytestring chronos concur-core concur-replica
-    containers envparse esqueleto extra file-embed haskell-coinbase-pro
-    hspec hspec-wai http-client http-client-tls katip lens microlens
-    monad-logger persistent persistent-migration persistent-postgresql
-    persistent-template replica resource-pool retry stm
-    template-haskell text time unbounded-delays universum unliftio vty
-    wai wai-middleware-static-embedded warp websockets
+    async base brick bytestring containers envparse extra file-embed
+    haskell-coinbase-pro haskii hspec http-client http-client-tls katip
+    lens microlens pretty-simple retry stm template-haskell text time
+    unbounded-delays universum unliftio vty
   ];
   prePatch = "hpack";
   homepage = "https://github.com/tkachuk-labs/bitcoin-dashboard-tui#readme";

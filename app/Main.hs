@@ -14,9 +14,13 @@ import qualified Data.Map as Map
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import qualified Graphics.Vty as Vty
+import qualified Haskii.Figlet as FLF
+import qualified Haskii.Figlet.Font as FLF
+import qualified Haskii.Text as FLF
 import qualified Network.HTTP.Client as Http
 import qualified Network.HTTP.Client.TLS as Http
 import Text.Pretty.Simple
+import Text.Printf (printf)
 import qualified Text.Show
 
 class ToCoinbase a b where
@@ -118,25 +122,27 @@ currencyPairs :: [CurrencyPair]
 currencyPairs =
   [ CurrencyPair "BTC" "USD",
     CurrencyPair "BTC" "EUR",
-    CurrencyPair "ADA" "BTC",
-    CurrencyPair "XMR" "BTC"
+    --CurrencyPair "XMR" "BTC",
+    CurrencyPair "ADA" "BTC"
   ]
 
-ui :: MarketState -> [Widget ViewPort]
-ui =
+ui :: (Text -> Text) -> MarketState -> [Widget ViewPort]
+ui toAscii =
   (: [])
     . center
     . vBox
-    . tables
+    . tables toAscii
 
-tables :: MarketState -> [Widget ViewPort]
-tables (MarketState kv) =
+tables :: (Text -> Text) -> MarketState -> [Widget ViewPort]
+tables toAscii (MarketState kv) =
   case partitionEithers . catMaybes $
     (\k -> row k <$> Map.lookup k kv) <$> currencyPairs of
     ([], xs) -> [tableOk xs]
     (es, []) -> [tableError es]
     (es, xs) -> [tableOk xs, tableError es]
   where
+    showNum :: Double -> Text
+    showNum = T.pack . printf "%.2f"
     tableOk =
       center
         . renderTable
@@ -149,15 +155,16 @@ tables (MarketState kv) =
         . table
         . (headerError :)
     headerOk =
-      [ txt "Base/Quote",
-        txt "Volume",
-        txt "Open",
-        txt "Low",
-        txt "High"
-      ]
+      txt . toAscii
+        <$> [ "BASE/QUOTE",
+              --"VOLUME",
+              "OPEN",
+              "LOW",
+              "HIGH"
+            ]
     headerError =
-      [ txt "Base/Quote",
-        txt "Error"
+      [ txt "BASE/QUOTE",
+        txt "ERROR"
       ]
     row k = \case
       MarketDataError err ->
@@ -176,18 +183,18 @@ tables (MarketState kv) =
               ]
       MarketDataStats s _ ->
         Right $
-          txt
+          txt . toAscii
             <$> [ show k,
-                  show . unVolume $ statsVolume s,
-                  show . unOpen $ statsOpen s,
-                  show . unLow $ statsLow s,
-                  show . unHigh $ statsHigh s
+                  --showNum . unVolume $ statsVolume s,
+                  showNum . unOpen $ statsOpen s,
+                  showNum . unLow $ statsLow s,
+                  showNum . unHigh $ statsHigh s
                 ]
 
-app :: Brick.App MarketState MarketEvent ViewPort
-app =
+app :: (Text -> Text) -> Brick.App MarketState MarketEvent ViewPort
+app toAscii =
   Brick.App
-    { Brick.appDraw = ui,
+    { Brick.appDraw = ui toAscii,
       Brick.appChooseCursor = Brick.neverShowCursor,
       Brick.appHandleEvent = appEventHandler,
       Brick.appStartEvent = pure,
@@ -238,9 +245,17 @@ appEventHandler st@(MarketState s) =
 
 main :: IO ()
 main = do
+  let flf = FLF.getFLF FLF.Small
+  let toAscii = TL.toStrict . FLF.render . FLF.figString flf . T.unpack
   chan <- Brick.newBChan 10
   void $ spawnLinkMarketWatcher chan
   initialVty <- buildVty
-  void $ customMain initialVty buildVty (Just chan) app $ MarketState mempty
+  void
+    $ customMain
+      initialVty
+      buildVty
+      (Just chan)
+      (app toAscii)
+    $ MarketState mempty
   where
     buildVty = Vty.mkVty Vty.defaultConfig

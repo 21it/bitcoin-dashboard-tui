@@ -21,12 +21,14 @@ stdenv.mkDerivation {
   buildInputs = [
     /* IDE */
     haskell-ide
+    ghcjs
     /* Apps */
     postgresql
     /* Utils */
     git
     nix-prefetch-scripts
     openssh
+    stack2cabal
     cabal2nix
     protobuf
     cacert

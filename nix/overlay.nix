@@ -1,3 +1,6 @@
+let nixpkgs20 = import (import ./nixpkgs20.nix) {};
+    nixpkgs21 = import (import ./nixpkgs21.nix) {};
+in
 {
   hexOrganization,
   hexApiKey,
@@ -13,6 +16,8 @@
       doJailbreak = self.haskell.lib.doJailbreak;
     in
       {
+        ghcjs = nixpkgs20.haskell.compiler.ghcjs;
+        stack2cabal = doJailbreak nixpkgs21.haskellPackages.stack2cabal;
         haskell-ide = import (
           fetchTarball "https://github.com/tim2CF/ultimate-haskell-ide/tarball/605191e71ecc13b07471c8859b91a2d3e2267485"
         ) {inherit vimBackground vimColorScheme;};
